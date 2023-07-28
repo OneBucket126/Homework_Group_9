@@ -1,6 +1,5 @@
 # SM3生日攻击
-
-平台：Windows 
+平台：Windows 10
 
 语言：C++ 
 
