@@ -7,11 +7,14 @@
 
 运行方法：直接运行main.py
 
-8bit
+**8bit**
+
 ![8-bit](1.png)
 
-12bit
+**12bit**
+
 ![12-bit](2.png)
 
-16bit
+**16bit**
+
 ![16-bit](3.png)
