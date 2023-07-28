@@ -7,7 +7,7 @@
 
 成功运行截图：
 
-![成功运行截图](Pictures/1/1.png)
+![成功运行截图](https://github.com/OneBucket126/SDUCST21_Homework_Group_9/blob/6fabe1e0be3aa416230dcd2508d524f35e54b5bf/Pictures/1/1.png)
 
 攻击核心部分：
 
