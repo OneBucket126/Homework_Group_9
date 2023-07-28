@@ -1,6 +1,4 @@
 # 实现Rho简化的SM3
-平台：Windows10
-
 语言：Python
 
 运行环境：Pychram on Python 3.10.11
