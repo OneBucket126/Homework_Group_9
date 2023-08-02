@@ -19,3 +19,7 @@ RAM：32.0 GB (31.9 GB 可用)
 2.[Implement the Rho method of reduced SM3](https://github.com/OneBucket126/SDUCST21_Homework_Group_9/tree/main/2.SM3%20Rho)
 
 3.[Implement length extension attack for SM3](https://github.com/OneBucket126/SDUCST21_Homework_Group_9/tree/main/3.SM3%E9%95%BF%E5%BA%A6%E6%89%A9%E5%B1%95%E6%94%BB%E5%87%BB)
+
+4.[Do your best to optimize SM3 implementation (software)](https://github.com/OneBucket126/SDUCST21_Homework_Group_9/tree/main/4.SM3优化)
+
+5.[Impl Merkle Tree following RFC6962](https://github.com/OneBucket126/SDUCST21_Homework_Group_9/tree/main/5.Merkle%20Tree%20RFC69620
