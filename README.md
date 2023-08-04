@@ -52,6 +52,6 @@ RAM：32.0 GB (31.9 GB 可用)
 
 19.[Forge a signature to pretend that you are Satoshi](https://github.com/OneBucket126/SDUCST21_Homework_Group_9/tree/main/19.伪造中本聪)
 
-21.[Schnorr Bacth]
+21.[Schnorr Bacth](https://github.com/OneBucket126/SDUCST21_Homework_Group_9/tree/main/21.Schnorr%20Batch)
 
 22.[Research report on MPT]
