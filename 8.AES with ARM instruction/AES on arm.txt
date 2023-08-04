@@ -1,0 +1,1240 @@
+S:
+        .string "c|w{\362ko\3050\001g+\376\327\253v\312\202\311}\372YG\360\255\324\242\257\234\244r\300\267\375\223&6?\367\3144\245\345\361q\3301\025\004\307#\303\030\226\005\232\007\022\200\342\353'\262u\t\203,\032\033nZ\240R;\326\263)\343/\204S\321"
+        .ascii  "\355 \374\261[j\313\2769JLX\317\320\357\252\373CM3\205E\371\002"
+        .ascii  "\177P<\237\250Q\243@\217\222\2358\365\274\266\332!\020\377\363"
+        .ascii  "\322\315\f\023\354_\227D\027\304\247~=d]\031s`\201O\334\"*\220"
+        .ascii  "\210F\356\270\024\336^\013\333\3402:\nI\006$\\\302\323\254b\221"
+        .ascii  "\225\344y\347\3107m\215\325N\251lV\364\352ez\256\b\272x%.\034"
+        .ascii  "\246\264\306\350\335t\037K\275\213\212p>\265fH\003\366\016a5"
+        .ascii  "W\271\206\301\035\236\341\370\230\021i\331\216\224\233\036\207"
+        .ascii  "\351\316U(\337\214\241\211\r\277\346BhA\231-\017\260T\273\026"
+        .word   16777216
+        .word   33554432
+        .word   67108864
+        .word   134217728
+        .word   268435456
+        .word   536870912
+        .word   1073741824
+        .word   -2147483648
+        .word   452984832
+        .word   905969664
+rcon1:
+        .ascii  "\001\002\004\b\020 @\200\0336"
+mixcolumns:
+        .ascii  "\002\003\001\001"
+        .ascii  "\001\002\003\001"
+        .ascii  "\001\001\002\003"
+        .ascii  "\003\001\001\002"
+SubBytes(unsigned char (*) [4]):
+        sub     sp, sp, #32
+        str     x0, [sp, 8]
+        str     wzr, [sp, 28]
+        b       .L2
+.L5:
+        str     wzr, [sp, 24]
+        b       .L3
+.L4:
+        ldrsw   x0, [sp, 28]
+        lsl     x0, x0, 2
+        ldr     x1, [sp, 8]
+        add     x1, x1, x0
+        ldrsw   x0, [sp, 24]
+        ldrb    w0, [x1, x0]
+        mov     w3, w0
+        ldrsw   x0, [sp, 28]
+        lsl     x0, x0, 2
+        ldr     x1, [sp, 8]
+        add     x1, x1, x0
+        adrp    x0, S
+        add     x2, x0, :lo12:S
+        sxtw    x0, w3
+        ldrb    w2, [x2, x0]
+        ldrsw   x0, [sp, 24]
+        strb    w2, [x1, x0]
+        ldr     w0, [sp, 24]
+        add     w0, w0, 1
+        str     w0, [sp, 24]
+.L3:
+        ldr     w0, [sp, 24]
+        cmp     w0, 3
+        ble     .L4
+        ldr     w0, [sp, 28]
+        add     w0, w0, 1
+        str     w0, [sp, 28]
+.L2:
+        ldr     w0, [sp, 28]
+        cmp     w0, 3
+        ble     .L5
+        nop
+        nop
+        add     sp, sp, 32
+        ret
+ShiftRows(unsigned char (*) [4]):
+        sub     sp, sp, #48
+        str     x0, [sp, 8]
+        str     wzr, [sp, 44]
+        b       .L7
+.L8:
+        ldrsw   x0, [sp, 44]
+        lsl     x0, x0, 2
+        ldr     x1, [sp, 8]
+        add     x1, x1, x0
+        ldr     w0, [sp, 44]
+        negs    w2, w0
+        and     w0, w0, 3
+        and     w2, w2, 3
+        csneg   w0, w0, w2, mi
+        sxtw    x0, w0
+        ldrb    w2, [x1, x0]
+        ldrsw   x0, [sp, 44]
+        lsl     x0, x0, 2
+        add     x1, sp, 16
+        strb    w2, [x1, x0]
+        ldrsw   x0, [sp, 44]
+        lsl     x0, x0, 2
+        ldr     x1, [sp, 8]
+        add     x1, x1, x0
+        ldr     w0, [sp, 44]
+        add     w0, w0, 1
+        negs    w2, w0
+        and     w0, w0, 3
+        and     w2, w2, 3
+        csneg   w0, w0, w2, mi
+        sxtw    x0, w0
+        ldrb    w2, [x1, x0]
+        ldrsw   x0, [sp, 44]
+        lsl     x0, x0, 2
+        add     x1, sp, 17
+        strb    w2, [x1, x0]
+        ldrsw   x0, [sp, 44]
+        lsl     x0, x0, 2
+        ldr     x1, [sp, 8]
+        add     x1, x1, x0
+        ldr     w0, [sp, 44]
+        add     w0, w0, 2
+        negs    w2, w0
+        and     w0, w0, 3
+        and     w2, w2, 3
+        csneg   w0, w0, w2, mi
+        sxtw    x0, w0
+        ldrb    w2, [x1, x0]
+        ldrsw   x0, [sp, 44]
+        lsl     x0, x0, 2
+        add     x1, sp, 18
+        strb    w2, [x1, x0]
+        ldrsw   x0, [sp, 44]
+        lsl     x0, x0, 2
+        ldr     x1, [sp, 8]
+        add     x1, x1, x0
+        ldr     w0, [sp, 44]
+        add     w0, w0, 3
+        negs    w2, w0
+        and     w0, w0, 3
+        and     w2, w2, 3
+        csneg   w0, w0, w2, mi
+        sxtw    x0, w0
+        ldrb    w2, [x1, x0]
+        ldrsw   x0, [sp, 44]
+        lsl     x0, x0, 2
+        add     x1, sp, 19
+        strb    w2, [x1, x0]
+        ldr     w0, [sp, 44]
+        add     w0, w0, 1
+        str     w0, [sp, 44]
+.L7:
+        ldr     w0, [sp, 44]
+        cmp     w0, 3
+        ble     .L8
+        str     wzr, [sp, 40]
+        b       .L9
+.L12:
+        str     wzr, [sp, 36]
+        b       .L10
+.L11:
+        ldrsw   x0, [sp, 40]
+        lsl     x0, x0, 2
+        ldr     x1, [sp, 8]
+        add     x1, x1, x0
+        ldrsw   x0, [sp, 36]
+        ldrsw   x2, [sp, 40]
+        lsl     x2, x2, 2
+        add     x2, x2, 48
+        add     x2, sp, x2
+        add     x0, x2, x0
+        ldrb    w2, [x0, -32]
+        ldrsw   x0, [sp, 36]
+        strb    w2, [x1, x0]
+        ldr     w0, [sp, 36]
+        add     w0, w0, 1
+        str     w0, [sp, 36]
+.L10:
+        ldr     w0, [sp, 36]
+        cmp     w0, 3
+        ble     .L11
+        ldr     w0, [sp, 40]
+        add     w0, w0, 1
+        str     w0, [sp, 40]
+.L9:
+        ldr     w0, [sp, 40]
+        cmp     w0, 3
+        ble     .L12
+        nop
+        nop
+        add     sp, sp, 48
+        ret
+GaloisField(unsigned char, unsigned char):
+        stp     x29, x30, [sp, -48]!
+        mov     x29, sp
+        str     x19, [sp, 16]
+        strb    w0, [sp, 47]
+        strb    w1, [sp, 46]
+        ldrb    w0, [sp, 47]
+        cmp     w0, 1
+        bne     .L14
+        ldrb    w0, [sp, 46]
+        b       .L15
+.L14:
+        ldrb    w0, [sp, 47]
+        cmp     w0, 2
+        bne     .L16
+        ldrsb   w0, [sp, 46]
+        cmp     w0, 0
+        bge     .L17
+        ldrsb   w0, [sp, 46]
+        ubfiz   w0, w0, 1, 7
+        sxtb    w1, w0
+        mov     w0, 27
+        eor     w0, w1, w0
+        sxtb    w0, w0
+        and     w0, w0, 255
+        b       .L15
+.L17:
+        ldrb    w0, [sp, 46]
+        ubfiz   w0, w0, 1, 7
+        and     w0, w0, 255
+        b       .L15
+.L16:
+        ldrb    w0, [sp, 47]
+        cmp     w0, 3
+        bne     .L18
+        ldrb    w1, [sp, 46]
+        mov     w0, 2
+        bl      GaloisField(unsigned char, unsigned char)
+        and     w19, w0, 255
+        ldrb    w1, [sp, 46]
+        mov     w0, 1
+        bl      GaloisField(unsigned char, unsigned char)
+        and     w0, w0, 255
+        eor     w0, w19, w0
+        and     w0, w0, 255
+        b       .L15
+.L18:
+        mov     w0, 0
+.L15:
+        ldr     x19, [sp, 16]
+        ldp     x29, x30, [sp], 48
+        ret
+MixColumns(unsigned char (*) [4]):
+        stp     x29, x30, [sp, -96]!
+        mov     x29, sp
+        str     x19, [sp, 16]
+        str     x0, [sp, 40]
+        stp     xzr, xzr, [sp, 56]
+        str     wzr, [sp, 92]
+        b       .L20
+.L27:
+        str     wzr, [sp, 88]
+        b       .L21
+.L26:
+        str     wzr, [sp, 84]
+        b       .L22
+.L25:
+        ldr     w0, [sp, 84]
+        cmp     w0, 0
+        bne     .L23
+        adrp    x0, mixcolumns
+        add     x2, x0, :lo12:mixcolumns
+        ldrsw   x0, [sp, 84]
+        ldrsw   x1, [sp, 92]
+        lsl     x1, x1, 2
+        add     x1, x2, x1
+        add     x0, x1, x0
+        ldrb    w2, [x0]
+        ldrsw   x0, [sp, 84]
+        lsl     x0, x0, 2
+        ldr     x1, [sp, 40]
+        add     x1, x1, x0
+        ldrsw   x0, [sp, 88]
+        ldrb    w0, [x1, x0]
+        mov     w1, w0
+        mov     w0, w2
+        bl      GaloisField(unsigned char, unsigned char)
+        and     w2, w0, 255
+        ldrsw   x0, [sp, 88]
+        ldrsw   x1, [sp, 92]
+        lsl     x1, x1, 2
+        add     x1, x1, 96
+        add     x1, sp, x1
+        add     x0, x1, x0
+        mov     w1, w2
+        strb    w1, [x0, -40]
+        b       .L24
+.L23:
+        ldrsw   x0, [sp, 88]
+        ldrsw   x1, [sp, 92]
+        lsl     x1, x1, 2
+        add     x1, x1, 96
+        add     x1, sp, x1
+        add     x0, x1, x0
+        ldrb    w19, [x0, -40]
+        adrp    x0, mixcolumns
+        add     x2, x0, :lo12:mixcolumns
+        ldrsw   x0, [sp, 84]
+        ldrsw   x1, [sp, 92]
+        lsl     x1, x1, 2
+        add     x1, x2, x1
+        add     x0, x1, x0
+        ldrb    w2, [x0]
+        ldrsw   x0, [sp, 84]
+        lsl     x0, x0, 2
+        ldr     x1, [sp, 40]
+        add     x1, x1, x0
+        ldrsw   x0, [sp, 88]
+        ldrb    w0, [x1, x0]
+        mov     w1, w0
+        mov     w0, w2
+        bl      GaloisField(unsigned char, unsigned char)
+        and     w0, w0, 255
+        eor     w0, w19, w0
+        and     w2, w0, 255
+        ldrsw   x0, [sp, 88]
+        ldrsw   x1, [sp, 92]
+        lsl     x1, x1, 2
+        add     x1, x1, 96
+        add     x1, sp, x1
+        add     x0, x1, x0
+        mov     w1, w2
+        strb    w1, [x0, -40]
+.L24:
+        ldr     w0, [sp, 84]
+        add     w0, w0, 1
+        str     w0, [sp, 84]
+.L22:
+        ldr     w0, [sp, 84]
+        cmp     w0, 3
+        ble     .L25
+        ldr     w0, [sp, 88]
+        add     w0, w0, 1
+        str     w0, [sp, 88]
+.L21:
+        ldr     w0, [sp, 88]
+        cmp     w0, 3
+        ble     .L26
+        ldr     w0, [sp, 92]
+        add     w0, w0, 1
+        str     w0, [sp, 92]
+.L20:
+        ldr     w0, [sp, 92]
+        cmp     w0, 3
+        ble     .L27
+        str     wzr, [sp, 80]
+        b       .L28
+.L31:
+        str     wzr, [sp, 76]
+        b       .L29
+.L30:
+        ldrsw   x0, [sp, 80]
+        lsl     x0, x0, 2
+        ldr     x1, [sp, 40]
+        add     x1, x1, x0
+        ldrsw   x0, [sp, 76]
+        ldrsw   x2, [sp, 80]
+        lsl     x2, x2, 2
+        add     x2, x2, 96
+        add     x2, sp, x2
+        add     x0, x2, x0
+        ldrb    w2, [x0, -40]
+        ldrsw   x0, [sp, 76]
+        strb    w2, [x1, x0]
+        ldr     w0, [sp, 76]
+        add     w0, w0, 1
+        str     w0, [sp, 76]
+.L29:
+        ldr     w0, [sp, 76]
+        cmp     w0, 3
+        ble     .L30
+        ldr     w0, [sp, 80]
+        add     w0, w0, 1
+        str     w0, [sp, 80]
+.L28:
+        ldr     w0, [sp, 80]
+        cmp     w0, 3
+        ble     .L31
+        nop
+        nop
+        ldr     x19, [sp, 16]
+        ldp     x29, x30, [sp], 96
+        ret
+KeyExpansion(unsigned char (*) [4], unsigned char (*) [44]):
+        sub     sp, sp, #32
+        str     x0, [sp, 8]
+        str     x1, [sp]
+        str     wzr, [sp, 28]
+        b       .L33
+.L45:
+        ldr     w0, [sp, 28]
+        cmp     w0, 3
+        bgt     .L34
+        str     wzr, [sp, 24]
+        b       .L35
+.L36:
+        ldrsw   x0, [sp, 24]
+        lsl     x0, x0, 2
+        ldr     x1, [sp, 8]
+        add     x2, x1, x0
+        ldrsw   x1, [sp, 24]
+        mov     x0, x1
+        lsl     x0, x0, 1
+        add     x0, x0, x1
+        lsl     x0, x0, 2
+        sub     x0, x0, x1
+        lsl     x0, x0, 2
+        mov     x1, x0
+        ldr     x0, [sp]
+        add     x1, x0, x1
+        ldrsw   x0, [sp, 28]
+        ldrb    w2, [x2, x0]
+        ldrsw   x0, [sp, 28]
+        strb    w2, [x1, x0]
+        ldr     w0, [sp, 24]
+        add     w0, w0, 1
+        str     w0, [sp, 24]
+.L35:
+        ldr     w0, [sp, 24]
+        cmp     w0, 3
+        ble     .L36
+        b       .L37
+.L34:
+        ldr     w0, [sp, 28]
+        and     w0, w0, 3
+        cmp     w0, 0
+        beq     .L38
+        str     wzr, [sp, 20]
+        b       .L39
+.L40:
+        ldrsw   x1, [sp, 20]
+        mov     x0, x1
+        lsl     x0, x0, 1
+        add     x0, x0, x1
+        lsl     x0, x0, 2
+        sub     x0, x0, x1
+        lsl     x0, x0, 2
+        mov     x1, x0
+        ldr     x0, [sp]
+        add     x1, x0, x1
+        ldr     w0, [sp, 28]
+        sub     w0, w0, #4
+        sxtw    x0, w0
+        ldrb    w3, [x1, x0]
+        ldrsw   x1, [sp, 20]
+        mov     x0, x1
+        lsl     x0, x0, 1
+        add     x0, x0, x1
+        lsl     x0, x0, 2
+        sub     x0, x0, x1
+        lsl     x0, x0, 2
+        mov     x1, x0
+        ldr     x0, [sp]
+        add     x1, x0, x1
+        ldr     w0, [sp, 28]
+        sub     w0, w0, #1
+        sxtw    x0, w0
+        ldrb    w2, [x1, x0]
+        ldrsw   x1, [sp, 20]
+        mov     x0, x1
+        lsl     x0, x0, 1
+        add     x0, x0, x1
+        lsl     x0, x0, 2
+        sub     x0, x0, x1
+        lsl     x0, x0, 2
+        mov     x1, x0
+        ldr     x0, [sp]
+        add     x1, x0, x1
+        eor     w0, w3, w2
+        and     w2, w0, 255
+        ldrsw   x0, [sp, 28]
+        strb    w2, [x1, x0]
+        ldr     w0, [sp, 20]
+        add     w0, w0, 1
+        str     w0, [sp, 20]
+.L39:
+        ldr     w0, [sp, 20]
+        cmp     w0, 3
+        ble     .L40
+        b       .L37
+.L38:
+        str     wzr, [sp, 16]
+        b       .L41
+.L44:
+        ldr     w0, [sp, 16]
+        cmp     w0, 0
+        bne     .L42
+        ldrsw   x1, [sp, 16]
+        mov     x0, x1
+        lsl     x0, x0, 1
+        add     x0, x0, x1
+        lsl     x0, x0, 2
+        sub     x0, x0, x1
+        lsl     x0, x0, 2
+        mov     x1, x0
+        ldr     x0, [sp]
+        add     x1, x0, x1
+        ldr     w0, [sp, 28]
+        sub     w0, w0, #4
+        sxtw    x0, w0
+        ldrb    w2, [x1, x0]
+        ldr     w0, [sp, 16]
+        add     w0, w0, 1
+        negs    w1, w0
+        and     w0, w0, 3
+        and     w1, w1, 3
+        csneg   w0, w0, w1, mi
+        sxtw    x1, w0
+        mov     x0, x1
+        lsl     x0, x0, 1
+        add     x0, x0, x1
+        lsl     x0, x0, 2
+        sub     x0, x0, x1
+        lsl     x0, x0, 2
+        mov     x1, x0
+        ldr     x0, [sp]
+        add     x1, x0, x1
+        ldr     w0, [sp, 28]
+        sub     w0, w0, #1
+        sxtw    x0, w0
+        ldrb    w0, [x1, x0]
+        mov     w3, w0
+        adrp    x0, S
+        add     x1, x0, :lo12:S
+        sxtw    x0, w3
+        ldrb    w0, [x1, x0]
+        eor     w0, w2, w0
+        and     w3, w0, 255
+        ldr     w0, [sp, 28]
+        add     w1, w0, 3
+        cmp     w0, 0
+        csel    w0, w1, w0, lt
+        asr     w0, w0, 2
+        sub     w2, w0, #1
+        adrp    x0, rcon1
+        add     x1, x0, :lo12:rcon1
+        sxtw    x0, w2
+        ldrb    w2, [x1, x0]
+        ldrsw   x1, [sp, 16]
+        mov     x0, x1
+        lsl     x0, x0, 1
+        add     x0, x0, x1
+        lsl     x0, x0, 2
+        sub     x0, x0, x1
+        lsl     x0, x0, 2
+        mov     x1, x0
+        ldr     x0, [sp]
+        add     x1, x0, x1
+        eor     w0, w3, w2
+        and     w2, w0, 255
+        ldrsw   x0, [sp, 28]
+        strb    w2, [x1, x0]
+        b       .L43
+.L42:
+        ldrsw   x1, [sp, 16]
+        mov     x0, x1
+        lsl     x0, x0, 1
+        add     x0, x0, x1
+        lsl     x0, x0, 2
+        sub     x0, x0, x1
+        lsl     x0, x0, 2
+        mov     x1, x0
+        ldr     x0, [sp]
+        add     x1, x0, x1
+        ldr     w0, [sp, 28]
+        sub     w0, w0, #4
+        sxtw    x0, w0
+        ldrb    w3, [x1, x0]
+        ldr     w0, [sp, 16]
+        add     w0, w0, 1
+        negs    w1, w0
+        and     w0, w0, 3
+        and     w1, w1, 3
+        csneg   w0, w0, w1, mi
+        sxtw    x1, w0
+        mov     x0, x1
+        lsl     x0, x0, 1
+        add     x0, x0, x1
+        lsl     x0, x0, 2
+        sub     x0, x0, x1
+        lsl     x0, x0, 2
+        mov     x1, x0
+        ldr     x0, [sp]
+        add     x1, x0, x1
+        ldr     w0, [sp, 28]
+        sub     w0, w0, #1
+        sxtw    x0, w0
+        ldrb    w0, [x1, x0]
+        mov     w2, w0
+        adrp    x0, S
+        add     x1, x0, :lo12:S
+        sxtw    x0, w2
+        ldrb    w2, [x1, x0]
+        ldrsw   x1, [sp, 16]
+        mov     x0, x1
+        lsl     x0, x0, 1
+        add     x0, x0, x1
+        lsl     x0, x0, 2
+        sub     x0, x0, x1
+        lsl     x0, x0, 2
+        mov     x1, x0
+        ldr     x0, [sp]
+        add     x1, x0, x1
+        eor     w0, w3, w2
+        and     w2, w0, 255
+        ldrsw   x0, [sp, 28]
+        strb    w2, [x1, x0]
+.L43:
+        ldr     w0, [sp, 16]
+        add     w0, w0, 1
+        str     w0, [sp, 16]
+.L41:
+        ldr     w0, [sp, 16]
+        cmp     w0, 3
+        ble     .L44
+.L37:
+        ldr     w0, [sp, 28]
+        add     w0, w0, 1
+        str     w0, [sp, 28]
+.L33:
+        ldr     w0, [sp, 28]
+        cmp     w0, 43
+        ble     .L45
+        nop
+        nop
+        add     sp, sp, 32
+        ret
+AddRoundKey(unsigned char (*) [4], unsigned char (*) [4]):
+        sub     sp, sp, #32
+        str     x0, [sp, 8]
+        str     x1, [sp]
+        str     wzr, [sp, 28]
+        b       .L47
+.L50:
+        str     wzr, [sp, 24]
+        b       .L48
+.L49:
+        ldrsw   x0, [sp, 28]
+        lsl     x0, x0, 2
+        ldr     x1, [sp, 8]
+        add     x1, x1, x0
+        ldrsw   x0, [sp, 24]
+        ldrb    w2, [x1, x0]
+        ldrsw   x0, [sp, 28]
+        lsl     x0, x0, 2
+        ldr     x1, [sp]
+        add     x1, x1, x0
+        ldrsw   x0, [sp, 24]
+        ldrb    w0, [x1, x0]
+        ldrsw   x1, [sp, 28]
+        lsl     x1, x1, 2
+        ldr     x3, [sp, 8]
+        add     x1, x3, x1
+        eor     w0, w2, w0
+        and     w2, w0, 255
+        ldrsw   x0, [sp, 24]
+        strb    w2, [x1, x0]
+        ldr     w0, [sp, 24]
+        add     w0, w0, 1
+        str     w0, [sp, 24]
+.L48:
+        ldr     w0, [sp, 24]
+        cmp     w0, 3
+        ble     .L49
+        ldr     w0, [sp, 28]
+        add     w0, w0, 1
+        str     w0, [sp, 28]
+.L47:
+        ldr     w0, [sp, 28]
+        cmp     w0, 3
+        ble     .L50
+        nop
+        nop
+        add     sp, sp, 32
+        ret
+.LC0:
+        .string "\347\254\254"
+.LC1:
+        .string "\350\275\256\345\257\206\351\222\245\357\274\232"
+.LC2:
+        .string "%02X "
+.LC3:
+        .string "%02X\n"
+AES(char const*, unsigned char*, bool):
+        stp     x29, x30, [sp, -448]!
+        mov     x29, sp
+        str     x0, [sp, 40]
+        str     x1, [sp, 32]
+        strb    w2, [sp, 31]
+        ldr     x0, [sp, 40]
+        ldrb    w0, [x0]
+        strb    w0, [sp, 408]
+        ldr     x0, [sp, 40]
+        add     x0, x0, 4
+        ldrb    w0, [x0]
+        strb    w0, [sp, 409]
+        ldr     x0, [sp, 40]
+        add     x0, x0, 8
+        ldrb    w0, [x0]
+        strb    w0, [sp, 410]
+        ldr     x0, [sp, 40]
+        add     x0, x0, 12
+        ldrb    w0, [x0]
+        strb    w0, [sp, 411]
+        ldr     x0, [sp, 40]
+        add     x0, x0, 1
+        ldrb    w0, [x0]
+        strb    w0, [sp, 412]
+        ldr     x0, [sp, 40]
+        add     x0, x0, 5
+        ldrb    w0, [x0]
+        strb    w0, [sp, 413]
+        ldr     x0, [sp, 40]
+        add     x0, x0, 9
+        ldrb    w0, [x0]
+        strb    w0, [sp, 414]
+        ldr     x0, [sp, 40]
+        add     x0, x0, 13
+        ldrb    w0, [x0]
+        strb    w0, [sp, 415]
+        ldr     x0, [sp, 40]
+        add     x0, x0, 2
+        ldrb    w0, [x0]
+        strb    w0, [sp, 416]
+        ldr     x0, [sp, 40]
+        add     x0, x0, 6
+        ldrb    w0, [x0]
+        strb    w0, [sp, 417]
+        ldr     x0, [sp, 40]
+        add     x0, x0, 10
+        ldrb    w0, [x0]
+        strb    w0, [sp, 418]
+        ldr     x0, [sp, 40]
+        add     x0, x0, 14
+        ldrb    w0, [x0]
+        strb    w0, [sp, 419]
+        ldr     x0, [sp, 40]
+        add     x0, x0, 3
+        ldrb    w0, [x0]
+        strb    w0, [sp, 420]
+        ldr     x0, [sp, 40]
+        add     x0, x0, 7
+        ldrb    w0, [x0]
+        strb    w0, [sp, 421]
+        ldr     x0, [sp, 40]
+        add     x0, x0, 11
+        ldrb    w0, [x0]
+        strb    w0, [sp, 422]
+        ldr     x0, [sp, 40]
+        add     x0, x0, 15
+        ldrb    w0, [x0]
+        strb    w0, [sp, 423]
+        ldr     x0, [sp, 40]
+        ldrb    w0, [x0]
+        strb    w0, [sp, 392]
+        ldr     x0, [sp, 40]
+        add     x0, x0, 4
+        ldrb    w0, [x0]
+        strb    w0, [sp, 393]
+        ldr     x0, [sp, 40]
+        add     x0, x0, 8
+        ldrb    w0, [x0]
+        strb    w0, [sp, 394]
+        ldr     x0, [sp, 40]
+        add     x0, x0, 12
+        ldrb    w0, [x0]
+        strb    w0, [sp, 395]
+        ldr     x0, [sp, 40]
+        add     x0, x0, 1
+        ldrb    w0, [x0]
+        strb    w0, [sp, 396]
+        ldr     x0, [sp, 40]
+        add     x0, x0, 5
+        ldrb    w0, [x0]
+        strb    w0, [sp, 397]
+        ldr     x0, [sp, 40]
+        add     x0, x0, 9
+        ldrb    w0, [x0]
+        strb    w0, [sp, 398]
+        ldr     x0, [sp, 40]
+        add     x0, x0, 13
+        ldrb    w0, [x0]
+        strb    w0, [sp, 399]
+        ldr     x0, [sp, 40]
+        add     x0, x0, 2
+        ldrb    w0, [x0]
+        strb    w0, [sp, 400]
+        ldr     x0, [sp, 40]
+        add     x0, x0, 6
+        ldrb    w0, [x0]
+        strb    w0, [sp, 401]
+        ldr     x0, [sp, 40]
+        add     x0, x0, 10
+        ldrb    w0, [x0]
+        strb    w0, [sp, 402]
+        ldr     x0, [sp, 40]
+        add     x0, x0, 14
+        ldrb    w0, [x0]
+        strb    w0, [sp, 403]
+        ldr     x0, [sp, 40]
+        add     x0, x0, 3
+        ldrb    w0, [x0]
+        strb    w0, [sp, 404]
+        ldr     x0, [sp, 40]
+        add     x0, x0, 7
+        ldrb    w0, [x0]
+        strb    w0, [sp, 405]
+        ldr     x0, [sp, 40]
+        add     x0, x0, 11
+        ldrb    w0, [x0]
+        strb    w0, [sp, 406]
+        ldr     x0, [sp, 40]
+        add     x0, x0, 15
+        ldrb    w0, [x0]
+        strb    w0, [sp, 407]
+        add     x0, sp, 216
+        movi    v31.4s, 0
+        stp     q31, q31, [x0]
+        stp     q31, q31, [x0, 32]
+        stp     q31, q31, [x0, 64]
+        stp     q31, q31, [x0, 96]
+        stp     q31, q31, [x0, 128]
+        str     q31, [x0, 160]
+        add     x1, sp, 216
+        add     x0, sp, 392
+        bl      KeyExpansion(unsigned char (*) [4], unsigned char (*) [44])
+        add     x0, sp, 56
+        movi    v31.4s, 0
+        stp     q31, q31, [x0]
+        stp     q31, q31, [x0, 32]
+        stp     q31, q31, [x0, 64]
+        stp     q31, q31, [x0, 96]
+        stp     q31, q31, [x0, 128]
+        mov     w0, 4
+        str     w0, [sp, 444]
+        b       .L52
+.L56:
+        str     wzr, [sp, 440]
+        b       .L53
+.L55:
+        ldr     w0, [sp, 444]
+        add     w1, w0, 3
+        cmp     w0, 0
+        csel    w0, w1, w0, lt
+        asr     w0, w0, 2
+        sub     w4, w0, #1
+        ldr     w0, [sp, 444]
+        negs    w1, w0
+        and     w0, w0, 3
+        and     w1, w1, 3
+        csneg   w5, w0, w1, mi
+        ldrsw   x2, [sp, 444]
+        ldrsw   x1, [sp, 440]
+        mov     x0, x1
+        lsl     x0, x0, 1
+        add     x0, x0, x1
+        lsl     x0, x0, 2
+        sub     x0, x0, x1
+        lsl     x0, x0, 2
+        add     x0, x0, 448
+        add     x0, sp, x0
+        add     x0, x0, x2
+        ldrb    w3, [x0, -232]
+        sxtw    x0, w5
+        sxtw    x2, w4
+        ldrsw   x1, [sp, 440]
+        lsl     x2, x2, 2
+        add     x1, x2, x1
+        lsl     x1, x1, 2
+        add     x1, x1, 448
+        add     x1, sp, x1
+        add     x0, x1, x0
+        sub     x0, x0, #4096
+        mov     w1, w3
+        strb    w1, [x0, 3704]
+        ldr     w0, [sp, 444]
+        add     w2, w0, 1
+        ldr     w0, [sp, 444]
+        add     w1, w0, 3
+        cmp     w0, 0
+        csel    w0, w1, w0, lt
+        asr     w0, w0, 2
+        sub     w4, w0, #1
+        ldr     w0, [sp, 444]
+        add     w0, w0, 1
+        negs    w1, w0
+        and     w0, w0, 3
+        and     w1, w1, 3
+        csneg   w5, w0, w1, mi
+        sxtw    x2, w2
+        ldrsw   x1, [sp, 440]
+        mov     x0, x1
+        lsl     x0, x0, 1
+        add     x0, x0, x1
+        lsl     x0, x0, 2
+        sub     x0, x0, x1
+        lsl     x0, x0, 2
+        add     x0, x0, 448
+        add     x0, sp, x0
+        add     x0, x0, x2
+        ldrb    w3, [x0, -232]
+        sxtw    x0, w5
+        sxtw    x2, w4
+        ldrsw   x1, [sp, 440]
+        lsl     x2, x2, 2
+        add     x1, x2, x1
+        lsl     x1, x1, 2
+        add     x1, x1, 448
+        add     x1, sp, x1
+        add     x0, x1, x0
+        sub     x0, x0, #4096
+        mov     w1, w3
+        strb    w1, [x0, 3704]
+        ldr     w0, [sp, 444]
+        add     w2, w0, 2
+        ldr     w0, [sp, 444]
+        add     w1, w0, 3
+        cmp     w0, 0
+        csel    w0, w1, w0, lt
+        asr     w0, w0, 2
+        sub     w4, w0, #1
+        ldr     w0, [sp, 444]
+        add     w0, w0, 2
+        negs    w1, w0
+        and     w0, w0, 3
+        and     w1, w1, 3
+        csneg   w5, w0, w1, mi
+        sxtw    x2, w2
+        ldrsw   x1, [sp, 440]
+        mov     x0, x1
+        lsl     x0, x0, 1
+        add     x0, x0, x1
+        lsl     x0, x0, 2
+        sub     x0, x0, x1
+        lsl     x0, x0, 2
+        add     x0, x0, 448
+        add     x0, sp, x0
+        add     x0, x0, x2
+        ldrb    w3, [x0, -232]
+        sxtw    x0, w5
+        sxtw    x2, w4
+        ldrsw   x1, [sp, 440]
+        lsl     x2, x2, 2
+        add     x1, x2, x1
+        lsl     x1, x1, 2
+        add     x1, x1, 448
+        add     x1, sp, x1
+        add     x0, x1, x0
+        sub     x0, x0, #4096
+        mov     w1, w3
+        strb    w1, [x0, 3704]
+        ldr     w0, [sp, 444]
+        add     w2, w0, 3
+        ldr     w0, [sp, 444]
+        add     w1, w0, 3
+        cmp     w0, 0
+        csel    w0, w1, w0, lt
+        asr     w0, w0, 2
+        sub     w4, w0, #1
+        ldr     w0, [sp, 444]
+        add     w0, w0, 3
+        negs    w1, w0
+        and     w0, w0, 3
+        and     w1, w1, 3
+        csneg   w5, w0, w1, mi
+        sxtw    x2, w2
+        ldrsw   x1, [sp, 440]
+        mov     x0, x1
+        lsl     x0, x0, 1
+        add     x0, x0, x1
+        lsl     x0, x0, 2
+        sub     x0, x0, x1
+        lsl     x0, x0, 2
+        add     x0, x0, 448
+        add     x0, sp, x0
+        add     x0, x0, x2
+        ldrb    w3, [x0, -232]
+        sxtw    x0, w5
+        sxtw    x2, w4
+        ldrsw   x1, [sp, 440]
+        lsl     x2, x2, 2
+        add     x1, x2, x1
+        lsl     x1, x1, 2
+        add     x1, x1, 448
+        add     x1, sp, x1
+        add     x0, x1, x0
+        sub     x0, x0, #4096
+        mov     w1, w3
+        strb    w1, [x0, 3704]
+        ldrb    w0, [sp, 31]
+        and     w0, w0, 1
+        cmp     w0, 0
+        beq     .L54
+        adrp    x0, .LC0
+        add     x1, x0, :lo12:.LC0
+        adrp    x0, _ZSt4cout
+        add     x0, x0, :lo12:_ZSt4cout
+        bl      std::basic_ostream<char, std::char_traits<char> >& std::operator<< <std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*)
+        mov     x2, x0
+        ldr     w0, [sp, 444]
+        add     w1, w0, 3
+        cmp     w0, 0
+        csel    w0, w1, w0, lt
+        asr     w0, w0, 2
+        mov     w1, w0
+        mov     x0, x2
+        bl      std::basic_ostream<char, std::char_traits<char> >::operator<<(int)
+        mov     x2, x0
+        adrp    x0, .LC1
+        add     x1, x0, :lo12:.LC1
+        mov     x0, x2
+        bl      std::basic_ostream<char, std::char_traits<char> >& std::operator<< <std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*)
+        mov     x2, x0
+        adrp    x0, _ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_
+        add     x1, x0, :lo12:_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_
+        mov     x0, x2
+        bl      std::basic_ostream<char, std::char_traits<char> >::operator<<(std::basic_ostream<char, std::char_traits<char> >& (*)(std::basic_ostream<char, std::char_traits<char> >&))
+        ldrsw   x2, [sp, 444]
+        ldrsw   x1, [sp, 440]
+        mov     x0, x1
+        lsl     x0, x0, 1
+        add     x0, x0, x1
+        lsl     x0, x0, 2
+        sub     x0, x0, x1
+        lsl     x0, x0, 2
+        add     x0, x0, 448
+        add     x0, sp, x0
+        add     x0, x0, x2
+        ldrb    w0, [x0, -232]
+        mov     w1, w0
+        adrp    x0, .LC2
+        add     x0, x0, :lo12:.LC2
+        bl      printf
+        ldr     w0, [sp, 444]
+        add     w0, w0, 1
+        sxtw    x2, w0
+        ldrsw   x1, [sp, 440]
+        mov     x0, x1
+        lsl     x0, x0, 1
+        add     x0, x0, x1
+        lsl     x0, x0, 2
+        sub     x0, x0, x1
+        lsl     x0, x0, 2
+        add     x0, x0, 448
+        add     x0, sp, x0
+        add     x0, x0, x2
+        ldrb    w0, [x0, -232]
+        mov     w1, w0
+        adrp    x0, .LC2
+        add     x0, x0, :lo12:.LC2
+        bl      printf
+        ldr     w0, [sp, 444]
+        add     w0, w0, 2
+        sxtw    x2, w0
+        ldrsw   x1, [sp, 440]
+        mov     x0, x1
+        lsl     x0, x0, 1
+        add     x0, x0, x1
+        lsl     x0, x0, 2
+        sub     x0, x0, x1
+        lsl     x0, x0, 2
+        add     x0, x0, 448
+        add     x0, sp, x0
+        add     x0, x0, x2
+        ldrb    w0, [x0, -232]
+        mov     w1, w0
+        adrp    x0, .LC2
+        add     x0, x0, :lo12:.LC2
+        bl      printf
+        ldr     w0, [sp, 444]
+        add     w0, w0, 3
+        sxtw    x2, w0
+        ldrsw   x1, [sp, 440]
+        mov     x0, x1
+        lsl     x0, x0, 1
+        add     x0, x0, x1
+        lsl     x0, x0, 2
+        sub     x0, x0, x1
+        lsl     x0, x0, 2
+        add     x0, x0, 448
+        add     x0, sp, x0
+        add     x0, x0, x2
+        ldrb    w0, [x0, -232]
+        mov     w1, w0
+        adrp    x0, .LC3
+        add     x0, x0, :lo12:.LC3
+        bl      printf
+.L54:
+        ldr     w0, [sp, 440]
+        add     w0, w0, 1
+        str     w0, [sp, 440]
+.L53:
+        ldr     w0, [sp, 440]
+        cmp     w0, 3
+        ble     .L55
+        ldr     w0, [sp, 444]
+        add     w0, w0, 4
+        str     w0, [sp, 444]
+.L52:
+        ldr     w0, [sp, 444]
+        cmp     w0, 43
+        ble     .L56
+        add     x1, sp, 392
+        add     x0, sp, 408
+        bl      AddRoundKey(unsigned char (*) [4], unsigned char (*) [4])
+        str     wzr, [sp, 436]
+        b       .L57
+.L58:
+        add     x0, sp, 408
+        bl      SubBytes(unsigned char (*) [4])
+        add     x0, sp, 408
+        bl      ShiftRows(unsigned char (*) [4])
+        add     x0, sp, 408
+        bl      MixColumns(unsigned char (*) [4])
+        add     x1, sp, 56
+        ldrsw   x0, [sp, 436]
+        lsl     x0, x0, 4
+        add     x1, x1, x0
+        add     x0, sp, 408
+        bl      AddRoundKey(unsigned char (*) [4], unsigned char (*) [4])
+        ldr     w0, [sp, 436]
+        add     w0, w0, 1
+        str     w0, [sp, 436]
+.L57:
+        ldr     w0, [sp, 436]
+        cmp     w0, 8
+        ble     .L58
+        add     x0, sp, 408
+        bl      SubBytes(unsigned char (*) [4])
+        add     x0, sp, 408
+        bl      ShiftRows(unsigned char (*) [4])
+        add     x0, sp, 56
+        add     x1, x0, 144
+        add     x0, sp, 408
+        bl      AddRoundKey(unsigned char (*) [4], unsigned char (*) [4])
+        str     wzr, [sp, 432]
+        b       .L59
+.L62:
+        str     wzr, [sp, 428]
+        b       .L60
+.L61:
+        ldr     w0, [sp, 432]
+        lsl     w1, w0, 2
+        ldr     w0, [sp, 428]
+        add     w0, w1, w0
+        sxtw    x0, w0
+        ldr     x1, [sp, 32]
+        add     x0, x1, x0
+        ldrsw   x1, [sp, 428]
+        ldrsw   x2, [sp, 432]
+        lsl     x2, x2, 2
+        add     x2, x2, 448
+        add     x2, sp, x2
+        add     x1, x2, x1
+        ldrb    w1, [x1, -40]
+        strb    w1, [x0]
+        ldr     w0, [sp, 428]
+        add     w0, w0, 1
+        str     w0, [sp, 428]
+.L60:
+        ldr     w0, [sp, 428]
+        cmp     w0, 3
+        ble     .L61
+        ldr     w0, [sp, 432]
+        add     w0, w0, 1
+        str     w0, [sp, 432]
+.L59:
+        ldr     w0, [sp, 432]
+        cmp     w0, 3
+        ble     .L62
+        nop
+        nop
+        ldp     x29, x30, [sp], 448
+        ret
+.LC4:
+        .string "2021004600080000"
+.LC5:
+        .string "\346\230\216\346\226\207\357\274\232"
+.LC6:
+        .string "\345\257\206\346\226\207\357\274\232"
+main:
+        stp     x29, x30, [sp, -48]!
+        mov     x29, sp
+        adrp    x0, .LC4
+        add     x0, x0, :lo12:.LC4
+        str     x0, [sp, 32]
+        adrp    x0, .LC5
+        add     x1, x0, :lo12:.LC5
+        adrp    x0, _ZSt4cout
+        add     x0, x0, :lo12:_ZSt4cout
+        bl      std::basic_ostream<char, std::char_traits<char> >& std::operator<< <std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*)
+        mov     x2, x0
+        adrp    x0, _ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_
+        add     x1, x0, :lo12:_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_
+        mov     x0, x2
+        bl      std::basic_ostream<char, std::char_traits<char> >::operator<<(std::basic_ostream<char, std::char_traits<char> >& (*)(std::basic_ostream<char, std::char_traits<char> >&))
+        str     wzr, [sp, 44]
+        b       .L64
+.L65:
+        ldrsw   x0, [sp, 44]
+        ldr     x1, [sp, 32]
+        add     x0, x1, x0
+        ldrb    w0, [x0]
+        mov     w1, w0
+        adrp    x0, .LC2
+        add     x0, x0, :lo12:.LC2
+        bl      printf
+        ldr     w0, [sp, 44]
+        add     w0, w0, 1
+        str     w0, [sp, 44]
+.L64:
+        ldr     w0, [sp, 44]
+        cmp     w0, 15
+        ble     .L65
+        mov     w0, 10
+        bl      putchar
+        add     x0, sp, 16
+        mov     w2, 0
+        mov     x1, x0
+        ldr     x0, [sp, 32]
+        bl      AES(char const*, unsigned char*, bool)
+        adrp    x0, .LC6
+        add     x1, x0, :lo12:.LC6
+        adrp    x0, _ZSt4cout
+        add     x0, x0, :lo12:_ZSt4cout
+        bl      std::basic_ostream<char, std::char_traits<char> >& std::operator<< <std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*)
+        str     wzr, [sp, 40]
+        b       .L66
+.L67:
+        ldrsw   x0, [sp, 40]
+        add     x1, sp, 16
+        ldrb    w0, [x1, x0]
+        mov     w1, w0
+        adrp    x0, .LC2
+        add     x0, x0, :lo12:.LC2
+        bl      printf
+        ldr     w0, [sp, 40]
+        add     w0, w0, 1
+        str     w0, [sp, 40]
+.L66:
+        ldr     w0, [sp, 40]
+        cmp     w0, 15
+        ble     .L67
+        mov     w0, 0
+        ldp     x29, x30, [sp], 48
+        ret
